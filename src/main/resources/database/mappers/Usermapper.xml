@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.mireu.app.users.UserDAO">
+  	<select id="login" resultMap="getLoginResult" parameterType="UserVO">
+  		SELECT * from USER_TBL ut
+		join MEMBER_TBL mt 
+		on ut.USERNAME = mt.USERNAME 
+		join ROLE_TBL rt 
+		ON rt.ROLE_NUM = mt.ROLE_NUM 
+		WHERE ut.USERNAME=#{username}
+  	</select>
+  	
+  	<insert id="join" parameterType="UserVO">
+  		INSERT INTO USER_TBL
+  		VALUES (#{username},#{password},#{name},#{phone},#{email},#{birth},#{filename},#{originalname},1,1,1,1,0,0)
+  	</insert>
+  	
+  	<update id="statusChange" parameterType="UserVO">
+  		UPDATE USER_TBL SET STATUS =#{status} WHERE USERNAME=#{username}
+  	</update>
+  	
+  	<resultMap type="UserVO" id="getLoginResult">
+		<id column="USERNAME" property="username"/>
+		<result column="PASSWORD" property="password"/>
+		<result column="NAME" property="name"/>
+		<result column="PHONE" property="phone"/>
+		<result column="EMAIL" property="email"/>
+		<result column="BIRTH" property="birth"/>
+		<result column="FILE_NAME" property="filename"/>
+		<result column="ORIGINAL_NAME" property="originalname"/>
+		<result column="AccountNonExpired" property="accountNonExpired"/>
+		<result column="AccountNonLocked" property="accountNonLocked"/>
+		<result column="CredentialsNonExpired" property="credentialsNonExpired"/>
+		<result column="Enabled" property="enabled"/>
+		
+		<collection property="roleVO" javaType="List" ofType="RoleVO">
+			<id column="ROLE_NUM" property="roleNum"/>
+			<result column="ROLE_NAME" property="roleName"/>
+		</collection>
+	</resultMap>
+  </mapper>
