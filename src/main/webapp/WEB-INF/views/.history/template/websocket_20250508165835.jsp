@@ -3,8 +3,6 @@
 <script>
 	//웹소켓관련코드
 	const websocket = new WebSocket("/ws/chat")
-	try{
-
 	const memoSend = document.getElementById("memoSend");
 	const memoContents = document.getElementById("memoContents")
 	const memoReceiver = document.getElementById("memoReceiver")
@@ -53,12 +51,6 @@
 		websocket.send(JSON.stringify(m))
 	})
 
-	
-}catch(e){
-
-}
-
-try {
 	websocket.onmessage = (m)=>{
 		console.log(m)
 
@@ -67,14 +59,9 @@ try {
 		let status = result.status;
 
 		if(status=="3"){
-				makeMemo(result)
-				location.reload();
+
 		}
 	}
-
-} catch(e) {
-	
-}
 	
 	class Message {
 		sender="";
@@ -101,33 +88,10 @@ try {
 		strong.classList.add("mr-auto")
 		strong.innerText="답글이 달렸습니다."
 
-		div2.appendChild(strong)
+		div2.append(strong)
 
 		let small = document.createElement("small")
 		small.innerText=data.date
-
-		div2.appendChild(small)
-
-		let button = document.createElement("button")
-		button.type = "button"
-		button.classList.add("ml-2","mb-1","close","readMessage")
-		button.dataDismiss="toast"
-		button.ariaLabel="Close"
-		button.dataChatNum=data.chatNum
-
-		let span = document.createElement("span")
-		span.ariaHidden="true"
-		span.innerText="&times;"
-
-		button.appendChild(span)
-
-		div2.appendChild(button)
-
-		let div3 = document.createElement("div")
-		div3.classList.add("toast-body")
-		div3.innerText=data.body+data.sender
-
-		div.appendChild(div3)
 		
 
 	}

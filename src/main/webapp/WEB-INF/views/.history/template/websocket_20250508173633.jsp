@@ -55,10 +55,9 @@
 
 	
 }catch(e){
-
+	
 }
 
-try {
 	websocket.onmessage = (m)=>{
 		console.log(m)
 
@@ -71,10 +70,6 @@ try {
 				location.reload();
 		}
 	}
-
-} catch(e) {
-	
-}
 	
 	class Message {
 		sender="";

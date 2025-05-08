@@ -3,8 +3,6 @@
 <script>
 	//웹소켓관련코드
 	const websocket = new WebSocket("/ws/chat")
-	try{
-
 	const memoSend = document.getElementById("memoSend");
 	const memoContents = document.getElementById("memoContents")
 	const memoReceiver = document.getElementById("memoReceiver")
@@ -53,12 +51,6 @@
 		websocket.send(JSON.stringify(m))
 	})
 
-	
-}catch(e){
-
-}
-
-try {
 	websocket.onmessage = (m)=>{
 		console.log(m)
 
@@ -67,14 +59,9 @@ try {
 		let status = result.status;
 
 		if(status=="3"){
-				makeMemo(result)
-				location.reload();
+
 		}
 	}
-
-} catch(e) {
-	
-}
 	
 	class Message {
 		sender="";
@@ -126,8 +113,6 @@ try {
 		let div3 = document.createElement("div")
 		div3.classList.add("toast-body")
 		div3.innerText=data.body+data.sender
-
-		div.appendChild(div3)
 		
 
 	}

@@ -26,6 +26,7 @@ public class ChatHandler implements WebSocketHandler {
 	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+		log.info("session:{}",session.getPrincipal().getName());
 		users.put(session.getPrincipal().getName(), session);
 		
 	}
@@ -38,6 +39,7 @@ public class ChatHandler implements WebSocketHandler {
 		MessageVO messageVO = objectMapper.readValue(message.getPayload().toString(), MessageVO.class);
 		
 		String sender = session.getPrincipal().getName();
+		log.info("sender:{}",sender);
 		messageVO.setSender(sender);
 		
 		if(messageVO.getStatus().equals("3")) {
@@ -50,6 +52,8 @@ public class ChatHandler implements WebSocketHandler {
 			}catch(Exception e) {
 				
 			}
+			
+			return;
 		}
 	}
 
@@ -62,6 +66,8 @@ public class ChatHandler implements WebSocketHandler {
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus closeStatus) throws Exception {
 		users.remove(session.getPrincipal().getName());
+		log.info("session closed: {}",session.getPrincipal().getName());
+		
 		
 	}
 
