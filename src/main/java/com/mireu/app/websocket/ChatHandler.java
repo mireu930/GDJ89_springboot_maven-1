@@ -29,6 +29,8 @@ public class ChatHandler implements WebSocketHandler {
 		log.info("session:{}",session.getPrincipal().getName());
 		users.put(session.getPrincipal().getName(), session);
 		
+//		WebsocketCollection.MAP.put(null, session);
+		
 	}
 
 	@Override
